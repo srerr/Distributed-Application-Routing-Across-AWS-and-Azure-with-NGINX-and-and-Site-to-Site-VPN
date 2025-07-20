@@ -1,0 +1,50 @@
+#postgresql installation on ubuntu:
+=>sudo apt install -y postgresql postgresql-contrib libpq-dev  # Install PostgreSQL and its development libraries   
+=>sudo -u postgres psql -c "CREATE USER myuser WITH PASSWORD 'mypassword';" # Create a new user with a password
+=>sudo -u postgres psql -c "CREATE DATABASE mydb WITH OWNER myuser;"    # Create a new database with the user as owner  
+=>sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser;"   # Grant privileges to user on the database  
+=>sudo -u postgres psql -c "ALTER USER myuser CREATEDB;" # Allow user to create databases   
+=>sudo -u postgres psql -c "ALTER USER myuser WITH SUPERUSER;" # Make user a superuser  
+=>sudo -u postgres psql -c "ALTER USER myuser WITH PASSWORD 'newpassword';" # Change the user's password    
+=>sudo -u postgres psql -c "DROP USER myuser;" # Drop the user if needed
+=>sudo -u postgres psql -c "DROP DATABASE mydb;" # Drop the database if needed  
+=>sudo -u postgres psql -c "SELECT * FROM pg_user;" # List all users in PostgreSQL  
+=>sudo -u postgres psql -c "SELECT * FROM pg_database;" # List all databases in PostgreSQL
+=>sudo -u postgres psql -c "SELECT * FROM pg_tables;" # List all tables in PostgreSQL   
+=>sudo -u postgres psql -c "SELECT * FROM pg_indexes;" # List all indexes in PostgreSQL
+=>sudo -u postgres psql -c "SELECT * FROM pg_stat_activity;" # List all active connections in PostgreSQL    
+=>sudo -u postgres psql -c "SELECT * FROM pg_stat_user_tables;" # List all user tables in PostgreSQL    
+=>sudo -u postgres psql -c "SELECT * FROM pg_stat_user_indexes;" # List all user indexes in PostgreSQL  
+=>#list all databases in PostgreSQL
+=>sudo -u postgres psql -c "SELECT datname FROM pg_database;" # List all database names in PostgreSQL   
+=>sudo -u postgres psql -c "SELECT usename FROM pg_user;" # List all user names in PostgreSQL
+=>sudo -u postgres psql -c "SELECT * FROM pg_roles;" # List all roles in PostgreSQL
+=>#list all tables in sreeram database
+=>sudo -u postgres psql -d mydb -c "\dt" # List all tables in the mydb database
+=>sudo -u postgres psql -d mydb -c "\dt+" # List all tables with additional information in the mydb database
+=>sudo -u postgres psql -d mydb -c "\d" # Describe the structure of the mydb database
+=>sudo -u postgres psql -d mydb -c "\d tablename" # Describe the structure of a specific table in the mydb database
+=>sudo -u postgres psql -d mydb -c "\l" # List all databases in PostgreSQL
+=>sudo -u postgres psql -d mydb -c "\c mydb" # Connect to the mydb database
+=>sudo -u postgres psql -d mydb -c "\du" # List all users in the mydb database
+=>sudo -u postgres psql -d mydb -c "\du+" # List all users with additional information in the mydb database
+=>sudo -u postgres psql -d mydb -c "\dn" # List all schemas in the mydb database
+=>sudo -u postgres psql -d mydb -c "\dn+" # List all schemas with additional information in the mydb database
+=>sudo -u postgres psql -d mydb -c "\df" # List all functions in the mydb database
+=>sudo -u postgres psql -d mydb -c "\df+" # List all functions with additional information in the mydb database
+=>sudo -u postgres psql -d mydb -c "\dv" # List all views in the mydb database
+=>sudo -u postgres psql -d mydb -c "\dv+" # List all views with additional information in the mydb database
+=>sudo -u postgres psql -d mydb -c "\di" # List all indexes in the mydb database
+=>sudo -u postgres psql -d mydb -c "\di+" # List all indexes with additional information in the mydb database
+=>sudo -u postgres psql -d mydb -c "\ds" # List all sequences in the mydb database
+=>sudo -u postgres psql -d mydb -c "\ds+" # List all sequences with additional information in the mydb database
+=>sudo -u postgres psql -d mydb -c "\dS" # List all system tables in the mydb database
+#postgresql settings:
+=>sudo vi /etc/postgresql/16/main/postgresql.conf # Edit PostgreSQL configuration file
+   listen_addresses = '*'
+=>sudo vi /etc/postgresql/16/main/pg_hba.conf # Edit PostgreSQL host-based authentication file
+    # Add the following line to allow all IP addresses to connect
+    host    all             all             10.0.0.5/32           md5
+=>sudo systemctl restart postgresql # Restart PostgreSQL service to apply changes
+=>Barman (Backup and Recovery Manager) for postgres backup
+=>WAL-G (Recommended for Production) same for postgres backup

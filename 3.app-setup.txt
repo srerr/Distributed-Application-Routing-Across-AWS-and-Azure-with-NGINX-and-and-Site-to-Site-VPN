@@ -1,0 +1,32 @@
+sudo apt install -y python3 python3-pip python3-venv
+sudo apt install -y pkg-config default-libmysqlclient-dev build-essential python3-dev
+sudo apt install -y \
+  libffi-dev \
+  libjpeg-dev \
+  zlib1g-dev \
+  libpng-dev \
+  libfreetype-dev \
+  liblcms2-dev \
+  libopenjp2-7-dev \
+  libtiff-dev \
+  tk-dev \
+  tcl-dev \
+  python3-dev \
+  build-essential \
+  pkg-config
+=>sudo apt install python3.12-venv
+=>python3 -m venv myenv
+=>source myenv/bin/activate
+=>pip install --upgrade pip
+=>pip install -r requirements.txt
+=>pip install gunicorn
+=>python3 manage.py makemigrations
+=>python3 manage.py makemigrations app1
+=>python3 manage.py migrate
+=>python3 manage.py collectstatic --noinput
+=>python3 manage.py createsuperuser --username admin --email admin@example.com  
+=>python3 manage.py runserver
+=> gunicorn job.wsgi:application --bind 0.0.0.0:8000
+=>scp -i private-app-ec2-pem.pem -r private-app-ec2-pem.pem  ubuntu@10.0.6.49:/home/ubuntu/job
+
+

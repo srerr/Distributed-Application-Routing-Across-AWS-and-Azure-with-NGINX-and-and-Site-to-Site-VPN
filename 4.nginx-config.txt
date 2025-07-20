@@ -1,0 +1,43 @@
+=>sudo apt update
+=>sudo apt install nginx -y
+=>sudo nginx -t # Test Nginx configuration
+=>sudo systemctl restart nginx # Restart Nginx to apply changes
+=>sudo systemctl start nginx
+=>sudo systemctl enable nginx
+=>sudo vi /etc/nginx/sites-available/default # Edit Nginx default configuration file
+
+Nginx config:
+upstream django_cluster {
+    server 10.0.0.4:8000;
+    server 10.0.0.5:8000;
+}
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name _;
+        location / {
+        proxy_pass http://django_cluster;  # Your upstream backend
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Serve static files
+        location /static/ {
+        alias /home/ram/job/static/;
+        }
+
+        # Serve media files
+        location /media/ {
+        alias /home/ram/job/media/;
+        }
+}
+=>sudo systemctl reload nginx # Reload Nginx to apply changes
+=>sudo ufw allow 'Nginx Full' # Allow Nginx through the firewall
+=>sudo ufw status # Check firewall status
+=>sudo chown -R www-data:www-data /home/ram/job/media/
+=>sudo chmod -R o+r /home/ram/job/static
+=>sudo chmod -R o+x /home/ram/job/static
+=>sudo chmod o+x /home/ram
+=>sudo chmod o+x /home/ram/job
