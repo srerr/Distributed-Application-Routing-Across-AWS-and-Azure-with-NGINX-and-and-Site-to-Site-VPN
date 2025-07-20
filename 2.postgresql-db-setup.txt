@@ -48,3 +48,7 @@
 =>sudo systemctl restart postgresql # Restart PostgreSQL service to apply changes
 =>Barman (Backup and Recovery Manager) for postgres backup
 =>WAL-G (Recommended for Production) same for postgres backup
+=>pgAdmin4 (Web-based GUI for PostgreSQL)
+=>psql (Command-line interface for PostgreSQL)
+=>pg_dump (Utility to backup PostgreSQL databases)
+=>pg_restore (Utility to restore PostgreSQL databases)  
